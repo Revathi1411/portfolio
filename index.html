@@ -1,0 +1,843 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Revathi Salapu - Portfolio</title>
+  <style>
+    :root {
+      --bg-color: #fff;
+      --text-color: #000;
+      --accent-color: #3498db;
+      --section-bg: #f8f9fa;
+    }
+
+    body.dark {
+      --bg-color: #1e1e1e;
+      --text-color: #f0f0f0;
+      --section-bg: #2d2d2d;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+  
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background: var(--bg-color);
+      color: var(--text-color);
+      margin: 0;
+      padding: 0;
+      transition: background 0.3s ease, color 0.3s ease;
+      line-height: 1.6;
+    }
+
+    header, footer {
+      background: var(--accent-color);
+      color: white;
+      padding: 1rem;
+      text-align: center;
+    }
+
+    nav {
+      position: sticky;
+      top: 0;
+      background: var(--accent-color);
+      padding: 1rem;
+      z-index: 999;
+      display: flex;
+      justify-content: center;
+      flex-wrap: wrap;
+    }
+
+    nav a {
+      margin: 0 1rem;
+      color: white;
+      text-decoration: none;
+      font-weight: 500;
+      transition: opacity 0.3s;
+    }
+
+    nav a:hover {
+      opacity: 0.8;
+    }
+
+    nav button {
+      margin-left: 1rem;
+      padding: 0.5rem 1rem;
+      background: white;
+      color: var(--accent-color);
+      border: none;
+      cursor: pointer;
+      border-radius: 5px;
+      font-weight: 500;
+    }
+
+    section {
+      padding: 3rem 2rem;
+    }
+
+    .section-title {
+      text-align: center;
+      margin-bottom: 2rem;
+      position: relative;
+    }
+
+    .section-title::after {
+      content: '';
+      position: absolute;
+      bottom: -10px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 60px;
+      height: 3px;
+      background: var(--accent-color);
+    }
+
+    .grid {
+      display: grid;
+      gap: 1.5rem;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    }
+
+    .project-card, .skill-card, .experience-card {
+      background: var(--bg-color);
+      border: 1px solid #ddd;
+      padding: 1.5rem;
+      border-radius: 10px;
+      transition: transform 0.3s, box-shadow 0.3s;
+      box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+    }
+
+    .project-card:hover, .skill-card:hover, .experience-card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+    }
+
+    .project-card h3, .skill-card h3, .experience-card h3 {
+      margin-top: 0;
+      color: var(--accent-color);
+    }
+
+    .project-card a {
+      display: inline-block;
+      margin-top: 10px;
+      padding: 8px 15px;
+      background: var(--accent-color);
+      color: white;
+      text-decoration: none;
+      border-radius: 5px;
+      transition: background 0.3s;
+    }
+
+    .project-card a:hover {
+      background: #2980b9;
+    }
+
+    form input, form textarea, form button {
+      width: 100%;
+      margin: 0.5rem 0;
+      padding: 0.75rem;
+      font-size: 1rem;
+      border: 1px solid #ccc;
+      border-radius: 5px;
+      box-sizing: border-box;
+    }
+
+    form button {
+      background: var(--accent-color);
+      color: white;
+      border: none;
+      cursor: pointer;
+      transition: background 0.3s;
+    }
+
+    form button:hover {
+      background: #2980b9;
+    }
+
+    .todo-container {
+      max-width: 500px;
+      margin: auto;
+      background: var(--bg-color);
+      padding: 20px;
+      border-radius: 12px;
+      box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+    }
+
+    .todo-container h2 {
+      text-align: center;
+    }
+
+    .todo-container input[type="text"] {
+      width: 80%;
+      padding: 10px;
+      font-size: 16px;
+    }
+
+    .todo-container button {
+      padding: 10px 15px;
+      font-size: 16px;
+      margin-left: 5px;
+      cursor: pointer;
+    }
+
+    .todo-container ul {
+      list-style-type: none;
+      padding: 0;
+      margin-top: 20px;
+    }
+
+    .todo-container li {
+      background: #eee;
+      padding: 10px;
+      margin-bottom: 10px;
+      display: flex;
+      justify-content: space-between;
+      border-radius: 6px;
+    }
+
+    .remove {
+      background: #e74c3c;
+      color: white;
+      border: none;
+      padding: 5px 10px;
+      border-radius: 4px;
+    }
+
+    .box {
+      background: var(--section-bg);
+      border: 1px solid #ddd;
+      border-radius: 8px;
+      padding: 1.5rem;
+      margin-top: 1rem;
+    }
+
+    .hidden {
+      display: none;
+    }
+
+    img[loading="lazy"] {
+      width: 100%;
+      height: auto;
+      border-radius: 8px;
+    }
+
+    .filter-container {
+      display: flex;
+      justify-content: center;
+      margin: 1rem 0;
+    }
+
+    .filter-container input {
+      width: 300px;
+      padding: 0.5rem;
+      font-size: 1rem;
+      border-radius: 5px;
+      border: 1px solid #ccc;
+    }
+
+    #scrollTopBtn {
+      position: fixed;
+      bottom: 40px;
+      right: 30px;
+      display: none;
+      background: var(--accent-color);
+      color: white;
+      border: none;
+      padding: 10px 15px;
+      border-radius: 5px;
+      cursor: pointer;
+      z-index: 999;
+      transition: background 0.3s;
+    }
+
+    #scrollTopBtn:hover {
+      background: #2980b9;
+    }
+
+    /* Skills Section Styles */
+    .skills-container {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 1.5rem;
+    }
+
+    .skill-category {
+      background: var(--section-bg);
+      padding: 1.5rem;
+      border-radius: 10px;
+    }
+
+    .skill-item {
+      margin-bottom: 1rem;
+    }
+
+    .skill-name {
+      display: flex;
+      justify-content: space-between;
+      margin-bottom: 5px;
+    }
+
+    .skill-bar {
+      height: 10px;
+      background: #e0e0e0;
+      border-radius: 5px;
+      overflow: hidden;
+    }
+
+    .skill-level {
+      height: 100%;
+      background: var(--accent-color);
+      border-radius: 5px;
+      transition: width 1s ease-in-out;
+    }
+
+    /* Experience Section Styles */
+    .timeline {
+      position: relative;
+      max-width: 800px;
+      margin: 0 auto;
+    }
+
+    .timeline::after {
+      content: '';
+      position: absolute;
+      width: 4px;
+      background: var(--accent-color);
+      top: 0;
+      bottom: 0;
+      left: 50%;
+      margin-left: -2px;
+    }
+
+    .timeline-item {
+      padding: 10px 40px;
+      position: relative;
+      width: 50%;
+      box-sizing: border-box;
+    }
+
+    .timeline-item:nth-child(odd) {
+      left: 0;
+    }
+
+    .timeline-item:nth-child(even) {
+      left: 50%;
+    }
+
+    .timeline-content {
+      padding: 20px;
+      background: var(--section-bg);
+      border-radius: 10px;
+      position: relative;
+    }
+
+    .timeline-item:nth-child(odd) .timeline-content::after {
+      content: '';
+      position: absolute;
+      width: 20px;
+      height: 20px;
+      right: -10px;
+      background: var(--section-bg);
+      top: 20px;
+      border-radius: 50%;
+      z-index: 1;
+    }
+
+    .timeline-item:nth-child(even) .timeline-content::after {
+      content: '';
+      position: absolute;
+      width: 20px;
+      height: 20px;
+      left: -10px;
+      background: var(--section-bg);
+      top: 20px;
+      border-radius: 50%;
+      z-index: 1;
+    }
+
+    .timeline-date {
+      font-weight: bold;
+      color: var(--accent-color);
+      margin-bottom: 5px;
+    }
+
+    /* Resume Section Styles */
+    .resume-container {
+      text-align: center;
+      max-width: 600px;
+      margin: 0 auto;
+    }
+
+    .resume-download {
+      display: inline-block;
+      margin-top: 20px;
+      padding: 12px 25px;
+      background: var(--accent-color);
+      color: white;
+      text-decoration: none;
+      border-radius: 5px;
+      font-weight: bold;
+      transition: background 0.3s;
+    }
+
+    .resume-download:hover {
+      background: #2980b9;
+    }
+
+    /* Product Gallery Styles */
+    .filters {
+      display: flex;
+      justify-content: center;
+      gap: 1rem;
+      margin-bottom: 2rem;
+      flex-wrap: wrap;
+    }
+
+    .filters select {
+      padding: 0.5rem;
+      border-radius: 5px;
+      border: 1px solid #ccc;
+    }
+
+    .gallery {
+      display: grid;
+      gap: 1.5rem;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    }
+
+    .product {
+      border: 1px solid #ccc;
+      border-radius: 8px;
+      padding: 1rem;
+      text-align: center;
+      background: var(--bg-color);
+      transition: transform 0.3s;
+    }
+
+    .product:hover {
+      transform: translateY(-5px);
+    }
+
+    /* Responsive Design */
+    @media (max-width: 768px) {
+      .timeline::after {
+        left: 31px;
+      }
+      
+      .timeline-item {
+        width: 100%;
+        padding-left: 70px;
+        padding-right: 25px;
+      }
+      
+      .timeline-item:nth-child(even) {
+        left: 0;
+      }
+      
+      nav {
+        flex-direction: column;
+        align-items: center;
+      }
+      
+      nav a, nav button {
+        margin: 5px 0;
+      }
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>Revathi Salapu</h1>
+    <nav>
+      <a href="#about">About</a>
+      <a href="#skills">Skills</a>
+      <a href="#experience">Experience</a>
+      <a href="#projects">Projects</a>
+      <a href="#resume">Resume</a>
+      <a href="#products">Products</a>
+      <a href="#contact">Contact</a>
+      <button id="theme-toggle">🌙 Dark Mode</button>
+    </nav>
+  </header>
+
+  <section id="about">
+    <h2 class="section-title">About Me</h2>
+    <p> I'm a passionate Full stack developer with a focus on building responsive and modern web applications. I enjoy turning complex problems into elegant, user-friendly solutions using the latest technologies. My growing interest in AI and machine learning drives me to explore ways to create smarter, more personalized digital experiences. I aim to bridge the gap between intelligent systems and intuitive design.</p>
+  </section>
+
+  <section id="skills">
+    <h2 class="section-title">Skills</h2>
+    <div class="skills-container">
+      <div class="skill-category">
+        <h3>Frontend Technologies</h3>
+        <div class="skill-item">
+          <div class="skill-name">
+            <span>HTML5</span>
+            <span>95%</span>
+          </div>
+          <div class="skill-bar">
+            <div class="skill-level" style="width: 95%"></div>
+          </div>
+        </div>
+        <div class="skill-item">
+          <div class="skill-name">
+            <span>CSS3</span>
+            <span>90%</span>
+          </div>
+          <div class="skill-bar">
+            <div class="skill-level" style="width: 90%"></div>
+          </div>
+        </div>
+        <div class="skill-item">
+          <div class="skill-name">
+            <span>JavaScript</span>
+            <span>85%</span>
+          </div>
+          <div class="skill-bar">
+            <div class="skill-level" style="width: 85%"></div>
+          </div>
+        </div>
+        <div class="skill-item">
+          <div class="skill-name">
+            <span>React</span>
+            <span>80%</span>
+          </div>
+          <div class="skill-bar">
+            <div class="skill-level" style="width: 80%"></div>
+          </div>
+        </div>
+      </div>
+      
+      <div class="skill-category">
+        <h3>Tools & Technologies</h3>
+        <div class="skill-item">
+          <div class="skill-name">
+            <span>Git</span>
+            <span>85%</span>
+          </div>
+          <div class="skill-bar">
+            <div class="skill-level" style="width: 85%"></div>
+          </div>
+        </div>
+        <div class="skill-item">
+          <div class="skill-name">
+            <span>Responsive Design</span>
+            <span>90%</span>
+          </div>
+          <div class="skill-bar">
+            <div class="skill-level" style="width: 90%"></div>
+          </div>
+        </div>
+        <div class="skill-item">
+          <div class="skill-name">
+            <span>UI/UX Design</span>
+            <span>75%</span>
+          </div>
+          <div class="skill-bar">
+            <div class="skill-level" style="width: 75%"></div>
+          </div>
+        </div>
+        <div class="skill-item">
+          <div class="skill-name">
+            <span>Web Performance</span>
+            <span>70%</span>
+          </div>
+          <div class="skill-bar">
+            <div class="skill-level" style="width: 70%"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="experience">
+    <h2 class="section-title">Experience</h2>
+    <div class="timeline">
+      <div class="timeline-item">
+        <div class="timeline-content">
+          <div class="timeline-date">2025 - Present</div>
+          <h3>Frontend Developer Intern</h3>
+          <h4>Edunet Foundation.</h4>
+          <p>Developed responsive web applications using React and modern JavaScript. Collaborated with UX designers to implement pixel-perfect interfaces.</p>
+        </div>
+      </div>
+      <div class="timeline-item">
+        <div class="timeline-content">
+          <div class="timeline-date">2 months</div>
+          <h3>Machine Learning</h3>
+          <h4>Edunet foundation </h4>
+          <p>Machine learning web application that predicts employee salaries based on experience, education, and role using regression algorithms. Built with Python Flask and React.</p>
+          </div>
+      </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="projects">
+    <h2 class="section-title">My Projects</h2>
+    <div class="filter-container">
+      <input type="text" id="projectFilter" placeholder="Filter projects by name...">
+    </div>
+    <div id="project-container" class="grid"></div>
+    <div class="box">
+      </div>
+    </div>
+  </section>
+
+  <section id="resume">
+    <h2 class="section-title">Resume</h2>
+    <div class="resume-container">
+      <p>Download my resume to learn more about my qualifications and experience.</p>
+      <a href="C:\Users\HP\OneDrive\Revathi_Resume (2).pdf" class="resume-download" download>Download Resume</a>
+    </div>
+  </section>
+
+  <section id="products" class="section">
+    <h2 class="section-title">Product Gallery</h2>
+    <div class="filters">
+      <select id="categoryFilter">
+        <option value="all">All Categories</option>
+        <option value="Book">Book</option>
+        <option value="Charger">Charger</option>
+        <option value="Headphones">Headphones</option>
+        <option value="Laptop">Laptop</option>
+        <option value="Notebook">Notebook</option>
+      </select>
+
+      <select id="priceFilter">
+        <option value="all">All Prices</option>
+        <option value="0-100">Under $100</option>
+        <option value="100-1000">$100 - $1000</option>
+        <option value="1000-5000">$1000 - $5000</option>
+        <option value="5000-100000">Above $5000</option>
+      </select>
+
+      <select id="sortFilter">
+        <option value="default">Sort by</option>
+        <option value="name">Name</option>
+        <option value="priceAsc">Price (Low to High)</option>
+        <option value="priceDesc">Price (High to Low)</option>
+      </select>
+    </div>
+    <div class="gallery" id="productGallery"></div>
+  </section>
+
+  <section>
+    <div class="todo-container">
+      <h2>🗒 To-Do List</h2>
+      <input type="text" id="taskInput" placeholder="Enter a new task...">
+      <button onclick="addTask()">Add</button>
+      <ul id="taskList"></ul>
+    </div>
+  </section>
+
+  <section id="contact">
+    <h2 class="section-title">Contact Me</h2>
+    <form id="contact-form">
+      <label for="name">Name</label>
+      <input type="text" id="name" placeholder="Your Name" required />
+      <label for="email">Email</label>
+      <input type="email" id="email" placeholder="Your Email" required />
+      <label for="message">Message</label>
+      <textarea id="message" placeholder="Your Message" required></textarea>
+      <button type="submit">Send</button>
+    </form>
+    <p id="form-status"></p>
+  </section>
+
+  <footer>
+    <p>© 2025 Revathi Salapu</p>
+  </footer>
+
+  <button id="scrollTopBtn" onclick="window.scrollTo({top: 0, behavior: 'smooth'});">⬆ Top</button>
+
+  <script>
+    document.getElementById('theme-toggle').onclick = () => {
+      document.body.classList.toggle('dark');
+      document.getElementById('theme-toggle').textContent = 
+        document.body.classList.contains('dark') ? '☀ Light Mode' : '🌙 Dark Mode';
+    };
+
+    window.onscroll = () => {
+      document.getElementById('scrollTopBtn').style.display = 
+        window.scrollY > 300 ? 'block' : 'none';
+    };
+
+    const projectsData = [
+      
+      {
+        title: "To-Do List",
+        description: "A simple to-do app with local storage support.",
+        link: "#",
+        image: "todo.jpg"
+      },
+      {
+        title: "Product Filter Gallery",
+        description: "A product filtering interface using JavaScript.",
+        link: "#",
+        image: "gallery.jpg"
+      },
+      {
+        title: "Contact Form Validation",
+        description: "A styled contact form with JavaScript validation.",
+        link: "#",
+        image: "contact.jpg"
+      }
+    ];
+       
+    const container = document.getElementById('project-container');
+
+    function renderProjects(filterText = '') {
+      container.innerHTML = '';
+      projectsData
+        .filter(project => project.title.toLowerCase().includes(filterText.toLowerCase()))
+        .forEach(project => {
+          const card = document.createElement('div');
+          card.className = 'project-card';
+          card.innerHTML = `
+            <h3>${project.title}</h3>
+            <p>${project.description}</p>
+            <a href="${project.link}" target="_blank">View Project</a>
+            <img src="${project.image}" alt="${project.title}" loading="lazy">
+          `;
+          container.appendChild(card);
+        });
+    }
+
+    document.getElementById('projectFilter').addEventListener('input', (e) => {
+      renderProjects(e.target.value);
+    });
+
+    renderProjects();
+
+    function addTask() {
+      const taskInput = document.getElementById("taskInput");
+      const taskText = taskInput.value.trim();
+      if (taskText === "") {
+        alert("Please enter a task!");
+        return;
+      }
+
+      const li = document.createElement("li");
+      li.textContent = taskText;
+
+      const removeBtn = document.createElement("button");
+      removeBtn.textContent = "Remove";
+      removeBtn.className = "remove";
+      removeBtn.onclick = function () {
+        li.remove();
+      };
+
+      li.appendChild(removeBtn);
+      document.getElementById("taskList").appendChild(li);
+      taskInput.value = "";
+    }
+
+    function toggleSection(id) {
+      const el = document.getElementById(id);
+      el.classList.toggle('hidden');
+    }
+
+    document.getElementById('contact-form').addEventListener('submit', function(e) {
+      e.preventDefault();
+      const name = document.getElementById('name').value.trim();
+      const email = document.getElementById('email').value.trim();
+      const message = document.getElementById('message').value.trim();
+      const status = document.getElementById('form-status');
+
+      if (!name || !email || !message) {
+        status.textContent = '❗ Please fill in all fields.';
+        status.style.color = 'red';
+        return;
+      }
+
+      status.textContent = '✅ Thank you! Your message has been sent.';
+      status.style.color = 'green';
+      this.reset();
+    });
+
+    // Product Gallery Script
+    const products = [
+      { name: "Book", price: 100, img: "Book.jpg" },
+      { name: "Charger", price: 1500, img: "charger.jpg" },
+      { name: "Headphones", price: 3000, img: "headphones.jpg" },
+      { name: "Laptop", price: 99999, img: "laptop.jpg" },
+      { name: "Notebook", price: 30, img: "notebook.jpg" }
+    ];
+
+    const gallery = document.getElementById("productGallery");
+    const categoryFilter = document.getElementById("categoryFilter");
+    const priceFilter = document.getElementById("priceFilter");
+    const sortFilter = document.getElementById("sortFilter");
+
+    function renderProducts() {
+      let filtered = [...products];
+      const category = categoryFilter.value;
+      const price = priceFilter.value;
+      const sort = sortFilter.value;
+
+      if (category !== "all") {
+        filtered = filtered.filter(p => p.name.toLowerCase() === category.toLowerCase());
+      }
+
+      if (price !== "all") {
+        const [min, max] = price.split("-").map(Number);
+        filtered = filtered.filter(p => p.price >= min && p.price <= max);
+      }
+
+      if (sort === "name") {
+        filtered.sort((a, b) => a.name.localeCompare(b.name));
+      } else if (sort === "priceAsc") {
+        filtered.sort((a, b) => a.price - b.price);
+      } else if (sort === "priceDesc") {
+        filtered.sort((a, b) => b.price - a.price);
+      }
+
+      gallery.innerHTML = '';
+      filtered.forEach(p => {
+        const div = document.createElement("div");
+        div.className = "product";
+        div.innerHTML = `
+          <img src="${p.img}" alt="${p.name}" loading="lazy" />
+          <h3>${p.name}</h3>
+          <p>Price: $${p.price.toLocaleString()}</p>
+        `;
+        gallery.appendChild(div);
+      });
+    }
+
+    categoryFilter.onchange = renderProducts;
+    priceFilter.onchange = renderProducts;
+    sortFilter.onchange = renderProducts;
+
+    renderProducts();
+
+    // Animate skill bars when they come into view
+    const observerOptions = {
+      threshold: 0.5
+    };
+
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          const skillLevels = entry.target.querySelectorAll('.skill-level');
+          skillLevels.forEach(level => {
+            const width = level.style.width;
+            level.style.width = '0';
+            setTimeout(() => {
+              level.style.width = width;
+            }, 100);
+          });
+        }
+      });
+    }, observerOptions);
+
+    const skillCategories = document.querySelectorAll('.skill-category');
+    skillCategories.forEach(category => {
+      observer.observe(category);
+    });
+  </script>
+</body>
+</html>
